@@ -1,0 +1,7 @@
+3 5
+A:AaB
+A:B
+B:BbC
+B:C
+C:cAd
+C:e
