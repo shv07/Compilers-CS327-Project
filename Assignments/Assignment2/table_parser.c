@@ -54,7 +54,7 @@ char* TableParser(char *filname, int row_index, char column_index, int columns )
 			{
 				if(tmp[tmp1+1]==',')
 				{
-					result="NULL";
+					strcpy(result,"Null\0");
 					break;
 				}
 				if(tmp[j]==',')
@@ -62,7 +62,8 @@ char* TableParser(char *filname, int row_index, char column_index, int columns )
 				result[j-tmp1-1]=tmp[j];
 					
 			}
-			result[j-tmp1-1]='\0';
+			if(strcmp(result,"Null\0"))
+				result[j-tmp1-1]='\0';
 			free(tmp);					
 			break;					
 		}
@@ -75,7 +76,7 @@ char* TableParser(char *filname, int row_index, char column_index, int columns )
 
 void main()
 {
-	char *a=TableParser("assignment2-sample-parsetable1.csv", 0, 'e',6);
+	char *a=TableParser("assignment2-sample-parsetable1.csv", 0, 'a',6);
 	printf("%s", a);
 	free(a);
 }
