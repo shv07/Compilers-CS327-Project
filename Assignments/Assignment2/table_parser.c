@@ -7,7 +7,7 @@
 Parses the Parse Table. Returns the value at row = "row_index" and column="column_index" in the parse table which is passed as .csv file with file name= filname
 */
 
-char* TableParser(char *filname, int row_index, char column_index , int columns)
+char* TableParser(char *filname, int row_index, char column_index, int columns )
 {
 	FILE* stream = fopen(filname, "r");
 	char line[columns*10];
@@ -67,6 +67,7 @@ char* TableParser(char *filname, int row_index, char column_index , int columns)
 	
 		count_row++;		
 	}
+	strcat(result, "\0");
 	return result;
 }
 
