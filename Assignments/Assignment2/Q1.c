@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include<string.h>
 
+
 char* TableParser(char *filname, int row_index, char column_index, int columns )
 {
 	FILE* stream = fopen(filname, "r");
@@ -44,27 +45,31 @@ char* TableParser(char *filname, int row_index, char column_index, int columns )
 					break;
 				}
 			}
-			
-			for (int j = tmp1+1; j<strlen(tmp); j++)
+			int j=0;
+			for (j = tmp1+1; j<strlen(tmp); j++)
 			{
 				if(tmp[tmp1+1]==',')
 				{
-					result="NULL";
+					strcpy(result,"Null\0");
 					break;
 				}
 				if(tmp[j]==',')
 					break;
 				result[j-tmp1-1]=tmp[j];
+					
 			}
+			if(strcmp(result,"Null\0"))
+				result[j-tmp1-1]='\0';
 			free(tmp);					
 			break;					
 		}
 	
 		count_row++;		
 	}
-	strcat(result, "\0");
+	//strcat(result, "\0");
 	return result;
 }
+
 int num_rows(FILE* fp){
 	// Check if file exists 
     if (fp == NULL)
@@ -135,7 +140,7 @@ int main(void)
         	for(j=0;j<strlen(line);j++){
         		int k;
         		k = line[j];
-        		if((k>=65&&k<=65+ter)||(k>=97&&k<=97+non_ter)||(k==58)){
+        		if((k>=65&&k<=65+non_ter)||(k>=97&&k<=97+ter)||(k==58)){
         			productions[i][j] = k;
         		}
         		else{
@@ -143,22 +148,24 @@ int main(void)
         			break;
         		}
         	}
-        	//printf("%s",productions[i]);
+        	printf("%s,%s\n",productions[i],line);
         	i = i + 1;
         }
     }
     fclose(fp);
     
-    printf("%s\n",productions[3]);
-    printf("%ld\n",strlen(productions[3]));
+    printf("%s\n",productions[6]);
+    printf("%ld\n",strlen(productions[6]));
     printf("$$$$$$$$$$$$$\n");
-    char inp[] = "eae$"; 
-//    printf("Enter Query String : ");
+    
+    char inp[100];// = "a$"; 
+    printf("Enter Query String : ");
+    scanf("%s",inp);
+    strcat(inp,"$");
  //   fgets(inp, 20, stdin);
 //	gets(inp); 
     printf("input is : %ld\n", strlen(inp)); 
     int n;
-    n = strlen(inp);
     
     i = 0;
     stack[0] = 0;
@@ -173,40 +180,54 @@ int main(void)
     
     
     
+    n = strlen(inp);
     while(i<n){
+    	printf("*******************\n");
     	printf("%d\n",stack[top]);
     	printf("%c\n",inp[i]);
-    	
+    	printf("%d\n",top);
     	char *a=TableParser("assignment2-sample-parsetable1.csv", stack[top], inp[i],5);
     	
-    	printf("sharma\n");
+    	printf("%s\n",a);
+    	
 		int res = strcmp(a, "acc\0");
 		if(res==0){
 			printf("This is valid\n");
 			break;
 		}
-		if(a=="None\0"){
+		res = strcmp(a, "Null\0");
+		
+		if(res==0){
 			printf("INVALID\n");
 			break;
 		}
 		if(a[0]=='r'){
-			printf("Reduce");
-			a = a + 1*sizeof(char);
 			
-			break;
+			printf("Reduce\n");
+			a = a + 1*sizeof(char);
+			int produc = atoi(a);
+			int temp1 = strlen(productions[produc])-2;
+			//printf("temp1 = %d\n",temp1);
+			top = top - temp1;
+			char *b=TableParser("assignment2-sample-parsetable1.csv", stack[top], productions[produc][0],5);
+			top = top + 1;
+			b = b + 1*sizeof(char);
+			stack[top] = atoi(b);
+			//free(a);
+			//printf("Shivji\n");
 		}	
 		if(a[0]=='s'){
-			printf("%ld\n",strlen(a));
+			//printf("%ld\n",strlen(a));
 			a = a + 1*sizeof(char);
 			printf("%s\n",a);
-			printf("Shift");
+			printf("Shift\n");
 			top = top + 1;
 			stack[top] = atoi(a);
 			i = i + 1;
-			break;
+			
 		}	
 		
-		printf("\n%s\n", a);
+		//printf("\n%s\n", a);
     
     
     
@@ -228,5 +249,6 @@ int main(void)
     
 	return 0;
 }
+
 
 
