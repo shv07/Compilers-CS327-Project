@@ -49,8 +49,8 @@ char* TableParser(char *filname, int row_index, char column_index, int columns )
 					break;
 				}
 			}
-			
-			for (int j = tmp1+1; j<strlen(tmp); j++)
+			int j=0;
+			for (j = tmp1+1; j<strlen(tmp); j++)
 			{
 				if(tmp[tmp1+1]==',')
 				{
@@ -60,19 +60,22 @@ char* TableParser(char *filname, int row_index, char column_index, int columns )
 				if(tmp[j]==',')
 					break;
 				result[j-tmp1-1]=tmp[j];
+					
 			}
+			result[j-tmp1-1]='\0';
 			free(tmp);					
 			break;					
 		}
 	
 		count_row++;		
 	}
-	strcat(result, "\0");
+	//strcat(result, "\0");
 	return result;
 }
 
 void main()
 {
-	char *a=TableParser("assignment2sampleparsetable2.csv", 0, 'b',5);
-	printf("\n%s\n", a);
+	char *a=TableParser("assignment2-sample-parsetable1.csv", 0, 'e',6);
+	printf("%s", a);
+	free(a);
 }
