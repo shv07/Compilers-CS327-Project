@@ -9,11 +9,11 @@ Reference: http://dinosaur.compilertools.net/bison/bison_5.html
 #include<string.h>
 #include<stdlib.h>  
 #include <math.h>
-int k=1;
+int k=97;
 int  yylex(void);
 void yyerror (char  *); 
-char* gencode(char word[],char first,char op,char second);
-int yywrap(void);
+char gencode(char word[],char first,char op,char second);
+//int yywrap(void);
 %}
 %union {
 char   val;  /* For returning numbers.                   */
@@ -34,45 +34,43 @@ char   val;  /* For returning numbers.                   */
 /* Grammar follows */
 
 %%
-input:   /* empty */
-        | input line
+input:  input line{printf("shiv\n");}
+|
 ;
-
 line:
           '\n'
         | exp '\n'   { printf("\nt = %c \n",$1); }
-        | error '\n' { yyerrok;                  }
+        | error '\n' { 		yyerrok;                  }
 ;
 
 exp:      NUM                { $$ = $1;                         }
         | exp '+' exp        { 	
 				char word[3]="t";
-        			char *test=gencode(word,$1,'+',$3);
+        			char test=gencode(word,$1,'+',$3);
         			$$=test;
-				free(test);
 			     }
 
         | exp '-' exp        {
 
 				char word[3]="t";
-				char *test=gencode(word,$1,'-',$3);
+				char test=gencode(word,$1,'-',$3);
 				$$=test;
-				free(test);
+				//free(test);
 				
                        	     }
 
         | exp '*' exp        { 
 				char word[3]="t";
-				char *test=gencode(word,$1,'*',$3);
+				char test=gencode(word,$1,'*',$3);
 				$$=test;
-				free(test);
+				//free(test);
                              }
 
         | exp '/' exp        { 
 				char word[3]="t";
-				char *test=gencode(word,$1,'/',$3);
+				char test=gencode(word,$1,'/',$3);
 				$$=test;
-				free(test);
+				//free(test);
 	                     }
 
 
@@ -97,18 +95,19 @@ void yyerror(char* str)
 {
         printf("\n%s",str);
 }
-char* gencode(char word[],char first,char op,char second)
+char gencode(char word[],char first,char op,char second)
 {
-    char *res=malloc(sizeof(char)*4);
-    char temp[2];
-    sprintf(temp,"%d",k);
-    strcpy(res, word);
-     strcat(res,temp);
+    //char *res=malloc(sizeof(char)*4);
+    //char temp[2];
+    //sprintf(temp,"%d",k);
+    char x=k;
+    //strcpy(res, word);
+     //strcat(res,temp);
     //word[1]=temp[0];
     k++;
-    printf("%s = %c %c %c\n",res,first,op,second);
-    strcpy(res, word);
-    return res; //Returns variable name like t1,t2,t3... properly
+    printf("%c = %c %c %c\n",x,first,op,second);
+    //strcpy(res, word);
+    return x; //Returns variable name like t1,t2,t3... properly
 }
 /*int yywrap()
 {

@@ -3,13 +3,13 @@
     #include<stdlib.h>
     #include"threeAdd.tab.h"
     #include<math.h>
-    //int k=1;
+    
 %}
 
 %%
 [0-9]+ {
-yylval.val=yytext[0];
-return NUM;
+	yylval.val=yytext[0];
+	return NUM;
 }
 
 \n {return 0;}
