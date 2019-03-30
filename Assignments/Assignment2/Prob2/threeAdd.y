@@ -1,7 +1,10 @@
 /* How to compile 
-$bison calc.c
-$gcc calc.tab.c -lm
+$bison -d threeAdd.y
+$flex threeAdd.l
+$gcc threeAdd.tab.c lex.yy.c -lfl
 Reference: http://dinosaur.compilertools.net/bison/bison_5.html
+	 : https://stackoverflow.com/questions/35891282/3-address-code-generation-using-lex-and-yacc
+
 */
 
 %{
@@ -9,27 +12,24 @@ Reference: http://dinosaur.compilertools.net/bison/bison_5.html
 #include<string.h>
 #include<stdlib.h>  
 #include <math.h>
-int k=97;
+
+int k=97;   // for the three address code variables - a, b, c, ........
+
 int  yylex(void);
 void yyerror (char  *); 
 char gencode(char word[],char first,char op,char second);
-//int yywrap(void);
 %}
+
 %union {
 char   val;  /* For returning numbers.                   */
-
-//symrec  *tptr;   /* For returning symbol-table pointers      */
 }
 
-%token <val>  NUM        /* Simple double precision number   */
-//%token <tptr> VAR FNCT  /* Variable and Function            */
+%token <val>  NUM        
 %type  <val>  exp
 
 %right '='
 %left '-' '+'
 %left '*' '/'
-%left NEG     /* Negation--unary minus */
- //%right '^'    /* Exponentiation        */
 
 /* Grammar follows */
 
@@ -97,20 +97,9 @@ void yyerror(char* str)
 }
 char gencode(char word[],char first,char op,char second)
 {
-    //char *res=malloc(sizeof(char)*4);
-    //char temp[2];
-    //sprintf(temp,"%d",k);
     char x=k;
-    //strcpy(res, word);
-     //strcat(res,temp);
-    //word[1]=temp[0];
     k++;
     printf("%c = %c %c %c\n",x,first,op,second);
-    //strcpy(res, word);
-    return x; //Returns variable name like t1,t2,t3... properly
+    return x; //Returns variable name like a,b,c, ...
 }
-/*int yywrap()
-{
-    return 1;
-}*/
 
