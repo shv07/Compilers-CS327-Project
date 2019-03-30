@@ -130,7 +130,7 @@ int main(void)
         	}
         	temp[k+1] = '\0';
         	ter = atoi(temp);
-        	printf("nt %d t %d\n",non_ter,ter);
+        	printf("non termminals = %d, terminals = %d\n",non_ter,ter);
         	i = i + 1;
         }
         else{
@@ -148,25 +148,21 @@ int main(void)
         			break;
         		}
         	}
-        	printf("%s,%s\n",productions[i],line);
+       // 	printf("%s,%s\n",productions[i],line);
         	i = i + 1;
         }
     }
     fclose(fp);
     
-    printf("%s\n",productions[6]);
-    printf("%ld\n",strlen(productions[6]));
-    printf("$$$$$$$$$$$$$\n");
+  //  printf("%s\n",productions[6]);
+    //printf("%ld\n",strlen(productions[6]));
     
     char inp[100];// = "a$"; 
     printf("Enter Query String : ");
     scanf("%s",inp);
-    strcat(inp,"$");
- //   fgets(inp, 20, stdin);
-//	gets(inp); 
+    strcat(inp,"$"); 
     printf("input is : %ld\n", strlen(inp)); 
     int n;
-    
     i = 0;
     stack[0] = 0;
     
