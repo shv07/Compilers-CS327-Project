@@ -7,7 +7,7 @@
   
 %% 
 
-"<html>" {//yylval.string = strcat(yytext,"\0");
+"<html>" {yylval.string =strdup(yytext);
 		return openhtml;
 		}
 "</html>" {//yylval.string = yytext;
@@ -41,10 +41,10 @@
 		return closep;
 		}
 
-"<h>" {//yylval.string = strcat(yytext,"\0");
+"<h1>" {//yylval.string = strcat(yytext,"\0");
 		return openh;
 		}
-"</h>" {//yylval.string = yytext;
+"</h1>" {//yylval.string = yytext;
 		return closeh;
 		}
 
@@ -57,7 +57,7 @@
 "<th>" {return openth;}
 "</th>" {return closeth;}
 
-[a-z| ]+ {yylval.string = strdup(yytext);
+[a-z |0-9| ]+ {yylval.string =strdup(yytext);
 		//sscanf(yytext,"%s",&yylval);	
 		return text;
 		}

@@ -1,28 +1,29 @@
 
- \documentclass[11pt]{article} 
- \usepackage{amsmath,textcomp,amssymb,geometry,graphicx,enumerate} \usepackage{algorithm} % \n Boxes/formatting around algorithms 
- \usepackage[noend]{algpseudocode} %\ Algorithms  
+\documentclass[11pt]{article} 
+\usepackage{amsmath,textcomp,amssymb,geometry,graphicx,enumerate} 
+\usepackage{algorithm} 
+\usepackage[noend]{algpseudocode}   
 \usepackage{hyperref}  
-\usepackage{tabto}   
-\hypersetup{   
-colorlinks=true,    
-linkcolor=blue,    
-filecolor=magenta, 
-  urlcolor=blue, 
-}
-\title{titl}
+\usepackage{tabto}
 
 
-\section{heading}
+
+\title{ random text}
+
+\begin{document} 
+\maketitle 
+
 \newline
-paragraph i this 
-}\newline20
-19
-18
-17
-Table=
-Start table
-Start Paragraph
-Start heading
-bodystart
-head started
+paragraph i this \newline
+
+
+\section{ heading }
+
+\newline
+ this is a paragraph i am hero \newline
+
+
+\section{ head 2 }
+redundany
+end{document} 
+

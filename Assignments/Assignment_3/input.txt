@@ -4,13 +4,10 @@
 random text
 </head>
 <body>
-<h>heading</h>
 <p>paragraph i this </p>
-<table>
-<tr>
-<th>first entry</th>
-</tr>
-</table>
+<h1> heading </h1>
+<p> this is a paragraph i am hero </p>
+<h1> head 2 </h1>
 redundany
 </body>
 </html>

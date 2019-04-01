@@ -61,39 +61,63 @@ char* string;
 
 %%
 
-html : { char *x= " \\documentclass[11pt]{article} \n \\usepackage{amsmath,textcomp,amssymb,geometry,graphicx,enumerate} \\usepackage{algorithm} % \\n Boxes/formatting around algorithms \n \\usepackage[noend]{algpseudocode} \%\\ Algorithms  \n\\usepackage{hyperref}  \n\\usepackage{tabto}   \n\\hypersetup{   \ncolorlinks=true,    \nlinkcolor=blue,    \nfilecolor=magenta, \n  urlcolor=blue, \n}";
-printf( "\n%s\n" ,x);
-} openhtml inhtml closehtml 
-
+html :                                                                                        {char *x= "\\documentclass[11pt]{article} \n\\usepackage{amsmath,textcomp,amssymb,geometry,graphicx,enumerate} \n\\usepackage{algorithm} \n\\usepackage[noend]{algpseudocode}   \n\\usepackage{hyperref}  \n\\usepackage{tabto}\n\n" ;
+printf( "\n%s\n" ,x);} openhtml inhtml closehtml
 ;
-inhtml : head body {printf("head started\n");}
+
+
+inhtml : head body {printf("\n");}
 ;
 
 head : openhead inhead closehead {printf("\n");}
 ;
-inhead : opentitle text closetitle text		{printf("\\title{%s}\n",$2);}
-	|text		{printf("only head : %s\n",$1);}
+inhead : opentitle text closetitle text	{printf("\n\\title{ %s}", $4);free($4);}
+	|text		{printf("\n\\title{ %s}", $1); free($1); }
 ;
-body : openbody inbody closebody {printf("bodystart\n");}
+
+
+body :  {printf("\n\\begin{document} \n\\maketitle \n"); }     
+	openbody inbody closebody 
+	{
+	//printf("\n\n%s\n\n", $2); 
+	printf("\nend{document} \n"); 
+	}
 ;
-inbody : paragraph inbody	{printf("Start Paragraph\n");}
-	|heading inbody 	{printf("Start heading\n");}
-	|table inbody		{printf("Start table\n");}
-	|text                    {$$=strdup($1);}
+
+
+inbody : text                   {printf("%s",$1);}
+				//printf("\n%s\n",$1);}
+	|paragraph inbody	{/*printf("para\n");$$=strdup(strcat(strdup($1),strdup($2)));*/ }
+	|heading inbody 	{/*printf("head\n");$$=strdup(strcat(strdup($1),strdup($2)));*/ }
+	|table inbody		{/*printf("fda\n");$$=strdup(strcat(strdup($1),strdup($2)));*/}
+	
 ;
-paragraph : openp text closep	{printf("\\newline\n%s\n\\newline",$2);}
+
+
+paragraph : openp text closep	
+	{
+	//char *x=strdup(strcat(strcat(strdup("\\newline\n"),strdup($2)),strdup("\n\\newline \n"))); 
+	printf("\n\\newline\n%s\\newline\n", $2);
+	}
 ;
-heading : openh text closeh	{printf("\n\\section{%s}\n",$2);}
+
+
+heading : openh text closeh	            
+	{
+	/*char *y=strdup(strcat(strdup(strcat(strdup("\\newline\n \\section{"),strdup($2))),strdup("} \n\\newline\n")));*/ 
+	printf("\n\n\\section{%s}\n", $2);}
 ;
-table : {printf("\\begin{tabular}")} opentable intable closetable  {printf("\\end{tabular}")}
+
+
+table :  opentable intable closetable  {$$=strdup("\ntable\n");}
 ;
-intable : opentr rows closetr intable	{printf("Rows=\n");}
-		   | opentr rows closetr	{printf("17\n");}
+intable : opentr rows closetr intable	{printf("\n");}
+		   | opentr rows closetr	{printf("\n");}
 ;
-rows : openth col closeth rows	{printf("%s\n",$2);}
-	| 	{printf("19\n");} //strcpy($$,"abc");}
+rows : openth col closeth rows	{printf("\n");}
+	| 	{printf("\n");} //strcpy($$,"abc");}
 ;
-col : text	{printf("20\n");}//strcpy($$,"abc");}
+col : text	{printf("\n");}//strcpy($$,"abc");}
 ;
 %%
 
