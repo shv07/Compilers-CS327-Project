@@ -1,0 +1,28 @@
+
+ \documentclass[11pt]{article} 
+ \usepackage{amsmath,textcomp,amssymb,geometry,graphicx,enumerate} \usepackage{algorithm} % \n Boxes/formatting around algorithms 
+ \usepackage[noend]{algpseudocode} %\ Algorithms  
+\usepackage{hyperref}  
+\usepackage{tabto}   
+\hypersetup{   
+colorlinks=true,    
+linkcolor=blue,    
+filecolor=magenta, 
+  urlcolor=blue, 
+}
+\title{titl}
+
+
+\section{heading}
+\newline
+paragraph i this 
+}\newline20
+19
+18
+17
+Table=
+Start table
+Start Paragraph
+Start heading
+bodystart
+head started
