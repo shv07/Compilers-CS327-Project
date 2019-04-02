@@ -11,7 +11,9 @@
 \begin{document} 
 \maketitle 
 
-\par{this is plain paragraph}
+\par{This is next line in para.}
+
+\par{this is plain paragraph.}
 
 \sections{ heading1 }
 
@@ -23,9 +25,11 @@
 
 \par{\textbf{\textit{ I AM italic and BOLD }}}
 
+\par{I am a para}
+
 \par{\emph{ emphasised para}}
 
-\par{\strong{ strong}}
+\par{\textbf{ strong}}
 
 \par{\sout{ delete }}
 
@@ -35,9 +39,9 @@
 
 \par{\colorbox{yellow}{ marks }}
 
-\par{$^{ superscript }$}
+\par{this is $^{ superscript }$}
 
-\par{$_{ subscript }$}
+\par{this is$_{ subscript }$}
 
 \par{\small  small }
 \begin{table}
@@ -46,9 +50,10 @@
 \caption{This is table converted from html}
 
 \begin{tabular}{|c||c|}
-\textbf{FirstName} & \textbf{LastName} \A idul & sharma \\ 
+\textbf{first} & \textbf{lastName} \\ 
+midul & sharma \\ 
 Shivji & Bhagat
 \end{tabular}
 \end{table}
-redundany
+
 \end{document} 

@@ -109,7 +109,7 @@
 "</td>" {yylval.string = strdup(yytext);
 		return closeth;}
 
-[A-Z| a-z |0-9| ]+ {yylval.string =strdup(yytext);
+[A-Z|a-z|0-9|\.| ]+ {yylval.string =strdup(yytext);
 		//sscanf(yytext,"%s",&yylval);	
 		return text;
 		}

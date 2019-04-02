@@ -132,7 +132,7 @@ body :  {printf("\n\\begin{document} \n\\maketitle \n"); }
 ;
 
 
-inbody : text inbody            {printf("%s",$1);}
+inbody : txt inbody            {/*printf("%s",$1);*/}
 				//printf("\n%s\n",$1);}
 	|paragraph inbody	{/*printf("para\n");$$=strdup(strcat(strdup($1),strdup($2)));*/ }
 	|heading inbody 	{/*printf("head\n");$$=strdup(strcat(strdup($1),strdup($2)));*/ }
@@ -140,15 +140,73 @@ inbody : text inbody            {printf("%s",$1);}
 	|   			{}
 ;
 
+txt : text txt					{
+								printf("\n%s\\newline\n", $1);
+								}
+	| openbold text closebold txt				{	
+								printf("\n\\textbf{%s}\n", $2);
+									}
+	| openit text closeit txt
+								{
+								printf("\n\\textit{%s}\n", $2);
+										}
+	
+	| openit openbold text closebold closeit txt
+								{
+								printf("\n\\textit{\\textbf{%s}}\n", $3);
+										}
+
+	| openbold openit text closeit closebold txt
+								{
+								printf("\n\\textbf{\\textit{%s}}\n", $3);
+										}
+
+
+
+	| openem text closeem txt
+								{
+								printf("\n\\emph{%s}\n", $2);	
+								}
+
+	| openstrong text closestrong txt
+										{
+										printf("\n\\textbf{%s}\n", $2);	
+										}
+	| opendel text closedel txt
+											{
+											printf("\n\\sout{%s}\n", $2);	
+											}
+	| openins text closeins txt
+											{
+											printf("\n\\underline{%s}\n", $2);	
+											}
+	| openmark text closemark txt
+											{
+											printf("\n\\colorbox{yellow}{%s}\n", $2);	
+											}
+	| text opensub text closesub txt
+											{
+											printf("\n%s$_{%s}$\n", $1,$3);	
+											}
+	| text opensup text closesup txt
+											{
+											printf("\n%s$^{%s}$\n", $1,$3);	
+											}
+	| opensmall text closesmall txt
+											{
+											printf("\n\\small{%s}\n", $2);	
+											}	
+	| {}
+;
 
 paragraph : openp inpara closep {}
 ; 
 
-inpara    : text inpara	{
-		printf("\n\\par{%s}\n", $1);
-		}
-	| openbold text closebold inpara{	
-										printf("\n\\par{\\textbf{%s}}\n", $2);
+inpara    : text inpara					{
+								printf("\n\\par{%s}\n", $1);
+								}
+	| openbold text closebold inpara			{	
+								printf("\n\\par{\\textbf{%s}}\n", $2);
 									}
 	| openit text closeit inpara
 								{
@@ -174,7 +232,7 @@ inpara    : text inpara	{
 
 	| openstrong text closestrong inpara
 										{
-										printf("\n\\par{\\strong{%s}}\n", $2);	
+										printf("\n\\par{\\textbf{%s}}\n", $2);	
 										}
 	| opendel text closedel inpara
 											{
@@ -188,13 +246,13 @@ inpara    : text inpara	{
 											{
 											printf("\n\\par{\\colorbox{yellow}{%s}}\n", $2);	
 											}
-	| opensub text closesub inpara
+	| text opensub text closesub inpara
 											{
-											printf("\n\\par{$_{%s}$}\n", $2);	
+											printf("\n\\par{%s$_{%s}$}\n", $1,$3);	
 											}
-	| opensup text closesup inpara
+	| text opensup text closesup inpara
 											{
-											printf("\n\\par{$^{%s}$}\n", $2);	
+											printf("\n\\par{%s$^{%s}$}\n", $1,$3);	
 											}
 	| opensmall text closesmall inpara
 											{

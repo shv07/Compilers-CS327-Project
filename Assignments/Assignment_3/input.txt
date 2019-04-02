@@ -5,31 +5,32 @@
 random text
 </head>
 <body>
-<p>this is plain paragraph</p>
+<p>this is plain paragraph.
+This is next line in para.</p>
 <h1> heading1 </h1>
 <p><b> bold para </b></p>
 <p><i> italic para</i></p>
 <p><i><b> i am bold and italic </b></i></p>
-<p><b><i> I AM italic and BOLD </i></b></p>
+<p>I am a para<b><i> I AM italic and BOLD </i></b></p>
 <p><em> emphasised para</em></p>
 <p><strong> strong</strong></p>
 <p><del> delete </del></p>
 <p><ins> insert </ins></p>
 <h3> head 3 </h3>
 <p><mark> marks </mark></p>
-<p><sup> superscript </sup></p>
-<p><sub> subscript </sub></p>
+<p>this is <sup> superscript </sup></p>
+<p>this is<sub> subscript </sub></p>
 <p><small> small </small></p>
 <table>
 <caption>
 This is table converted from html
 </caption>
 <tr>
-<th>FirstName</th>
-<th>LastName</th>
+<th>first</th>
+<th>lastName</th>
 </tr>
 <tr>
-<td> idul</td>
+<td>midul</td>
 <td>sharma</td>
 </tr>
 <tr>
@@ -37,6 +38,5 @@ This is table converted from html
 <td>Bhagat</td>
 </tr>
 </table>
-redundany
 </body>
 </html>
