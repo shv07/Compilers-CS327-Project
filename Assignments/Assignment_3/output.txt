@@ -7,47 +7,51 @@
 
 
 
-\title{ random text}
+\title{Head of the page.}
 \begin{document} 
 \maketitle 
+Begining of \textbf{body}....
+\par{ Next line in body. }
+
+\par{This is plain paragraph.}
 
 \par{This is next line in para.}
 
-\par{this is plain paragraph.}
+\section{ head 1 }
 
-\sections{ heading1 }
+\par{\textbf{ This is a bold text within a paragraph. }}
 
-\par{\textbf{ bold para }}
+\par{\textit{ This is an italic text within a paragraph. }}
 
-\par{\textit{ italic para}}
+\par{\textit{\textbf{ This is bold and italic text within paragraph. }}}
 
-\par{\textit{\textbf{ i am bold and italic }}}
+\subsection{ head 2 }
 
-\par{\textbf{\textit{ I AM italic and BOLD }}}
+\par{\textbf{\textit{ This text is italic and BOLD. }}}
 
-\par{I am a para}
+\par{Here comes italic and bold.}
 
-\par{\emph{ emphasised para}}
+\par{\emph{ This is emphasised text.}}
 
-\par{\textbf{ strong}}
+\par{\textbf{ This is strong text.}}
 
-\par{\sout{ delete }}
+\par{\sout{This is deleted text. }}
 
-\par{\underline{ insert }}
+\par{\underline{This is text with insert. }}
 
 \subsubsection{ head 3 }
 
-\par{\colorbox{yellow}{ marks }}
+\par{\colorbox{yellow}{ This is marked text. }}
 
-\par{this is $^{ superscript }$}
+\par{This is $^{ superscript. }$}
 
-\par{this is$_{ subscript }$}
+\par{This is$_{ subscript. }$}
 
-\par{\small  small }
+\par{\small This is small text. }
 \begin{table}
 \centering
 
-\caption{This is table converted from html}
+\caption{This is table}
 
 \begin{tabular}{|c||c|}
 \textbf{first} & \textbf{lastName} \\ 

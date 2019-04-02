@@ -118,8 +118,8 @@ inhtml : head body {}
 
 head : openhead inhead closehead {}
 ;
-inhead : opentitle text closetitle text	{printf("\n\\title{ %s}", $4);free($4);}
-	|text		{printf("\n\\title{ %s}", $1); free($1); }
+inhead : opentitle text closetitle text	{printf("\n\\title{%s}", $4);free($4);}
+	|text		{printf("\n\\title{%s}", $1); free($1); }
 ;
 
 
@@ -140,62 +140,58 @@ inbody : txt inbody            {/*printf("%s",$1);*/}
 	|   			{}
 ;
 
-txt : text txt					{
-								printf("\n%s\\newline\n", $1);
-								}
-	| openbold text closebold txt				{	
-								printf("\n\\textbf{%s}\n", $2);
-									}
-	| openit text closeit txt
+txt : text {printf("%s", $1);} txt					
+	| openbold text closebold {printf("\\textbf{%s}", $2);} txt				
+	| openit text closeit 
 								{
 								printf("\n\\textit{%s}\n", $2);
-										}
+										} txt
 	
-	| openit openbold text closebold closeit txt
+	| openit openbold text closebold closeit 
 								{
 								printf("\n\\textit{\\textbf{%s}}\n", $3);
-										}
+										} txt
 
-	| openbold openit text closeit closebold txt
+	| openbold openit text closeit closebold 
 								{
 								printf("\n\\textbf{\\textit{%s}}\n", $3);
-										}
+										} txt
 
 
 
-	| openem text closeem txt
+	| openem text closeem 
 								{
 								printf("\n\\emph{%s}\n", $2);	
-								}
+								} txt
 
-	| openstrong text closestrong txt
+	| openstrong text closestrong 
 										{
 										printf("\n\\textbf{%s}\n", $2);	
-										}
-	| opendel text closedel txt
+										} txt
+	| opendel text closedel 
 											{
 											printf("\n\\sout{%s}\n", $2);	
-											}
-	| openins text closeins txt
+											} txt
+	| openins text closeins 
 											{
 											printf("\n\\underline{%s}\n", $2);	
-											}
-	| openmark text closemark txt
+											} txt
+	| openmark text closemark 
 											{
 											printf("\n\\colorbox{yellow}{%s}\n", $2);	
-											}
-	| text opensub text closesub txt
+											} txt
+	| text opensub text closesub 
 											{
 											printf("\n%s$_{%s}$\n", $1,$3);	
-											}
-	| text opensup text closesup txt
+											} txt
+	| text opensup text closesup 
 											{
 											printf("\n%s$^{%s}$\n", $1,$3);	
-											}
-	| opensmall text closesmall txt
+											} txt
+	| opensmall text closesmall 
 											{
 											printf("\n\\small{%s}\n", $2);	
-											}	
+											} txt	
 	| {}
 ;
 
@@ -256,13 +252,13 @@ inpara    : text inpara					{
 											}
 	| opensmall text closesmall inpara
 											{
-											printf("\n\\par{\\small %s}\n", $2);	
+											printf("\n\\par{\\small%s}\n", $2);	
 											}	
 	| {}
 ;
 
 
-heading : openh1 text closeh1	    {printf("\n\\sections{%s}\n", $2);}
+heading : openh1 text closeh1	    {printf("\n\\section{%s}\n", $2);}
 	| openh2 text closeh2	    {printf("\n\\subsection{%s}\n", $2);}
 	| openh3 text closeh3	    {printf("\n\\subsubsection{%s}\n", $2);}
 ;
