@@ -1,29 +1,54 @@
-
 \documentclass[11pt]{article} 
-\usepackage{amsmath,textcomp,amssymb,geometry,graphicx,enumerate} 
+\usepackage{amsmath,textcomp,amssymb,geometry,graphicx,enumerate, ulem, xcolor} 
 \usepackage{algorithm} 
-\usepackage[noend]{algpseudocode}   
-\usepackage{hyperref}  
+\usepackage[noend]{algpseudocode}
+\usepackage{hyperref}
 \usepackage{tabto}
 
 
 
 \title{ random text}
-
 \begin{document} 
 \maketitle 
 
-\newline
-paragraph i this \newline
+\par{this is plain paragraph}
 
+\sections{ heading1 }
 
-\section{ heading }
+\par{\textbf{ bold para }}
 
-\newline
- this is a paragraph i am hero \newline
+\par{\textit{ italic para}}
 
+\par{\textit{\textbf{ i am bold and italic }}}
 
-\section{ head 2 }
+\par{\textbf{\textit{ I AM italic and BOLD }}}
+
+\par{\emph{ emphasised para}}
+
+\par{\strong{ strong}}
+
+\par{\sout{ delete }}
+
+\par{\underline{ insert }}
+
+\subsubsection{ head 3 }
+
+\par{\colorbox{yellow}{ marks }}
+
+\par{$^{ superscript }$}
+
+\par{$_{ subscript }$}
+
+\par{\small  small }
+\begin{table}
+\centering
+
+\caption{This is table converted from html}
+
+\begin{tabular}{|c||c|}
+\textbf{FirstName} & \textbf{LastName} \A idul & sharma \\ 
+Shivji & Bhagat
+\end{tabular}
+\end{table}
 redundany
-end{document} 
-
+\end{document} 
