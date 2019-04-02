@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>title</title>
+Head of the page.
+</head>
+<body>
+Begining of <b>body</b>....<p> Next line in body. </p>
+<p>This is plain paragraph.</p>
+<p>This is next line in para.</p>
+<h1> head 1 </h1>
+<p><b>This is a bold text within a paragraph. </b></p>
+<p><i>This is an italic text within a paragraph. </i></p>
+<p><i><b>This is bold and italic text within paragraph. </b></i></p>
+<h2> head 2 </h2>
+<p>Here comes italic and bold.<b><i>This text is italic and BOLD. </i></b></p>
+<p><em>This is emphasised text.</em></p>
+<p><strong>This is strong text.</strong></p>
+<p><del>This is deleted text. </del></p>
+<p><ins>This is text with insert. </ins></p>
+<h3> head 3 </h3>
+<p><mark>This is marked text. </mark></p>
+<p>This is <sup> superscript. </sup></p>
+<p>This is<sub> subscript. </sub></p>
+<p><small>This is small text. </small></p>
+<table>
+<caption>
+This is table
+</caption>
+<tr>
+<th>first</th>
+<th>lastName</th>
+</tr>
+<tr>
+<td>midul</td>
+<td>sharma</td>
+</tr>
+<tr>
+<td>Shivji</td>
+<td>Bhagat</td>
+</tr>
+</table>
+</body>
+</html>

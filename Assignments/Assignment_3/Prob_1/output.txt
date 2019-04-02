@@ -1,0 +1,63 @@
+\documentclass[11pt]{article} 
+\usepackage{amsmath,textcomp,amssymb,geometry,graphicx,enumerate, ulem, xcolor} 
+\usepackage{algorithm} 
+\usepackage[noend]{algpseudocode}
+\usepackage{hyperref}
+\usepackage{tabto}
+
+
+
+\title{Head of the page.}
+\begin{document} 
+\maketitle 
+Begining of \textbf{body}....
+\par{ Next line in body. }
+
+\par{This is plain paragraph.}
+
+\par{This is next line in para.}
+
+\section{ head 1 }
+
+\par{\textbf{This is a bold text within a paragraph. }}
+
+\par{\textit{This is an italic text within a paragraph. }}
+
+\par{\textit{\textbf{This is bold and italic text within paragraph. }}}
+
+\subsection{ head 2 }
+
+\par{Here comes italic and bold.}
+
+\par{\textbf{\textit{This text is italic and BOLD. }}}
+
+\par{\emph{This is emphasised text.}}
+
+\par{\textbf{This is strong text.}}
+
+\par{\sout{This is deleted text. }}
+
+\par{\underline{This is text with insert. }}
+
+\subsubsection{ head 3 }
+
+\par{\colorbox{yellow}{This is marked text. }}
+
+\par{This is $^{ superscript. }$}
+
+\par{This is$_{ subscript. }$}
+
+\par{\smallThis is small text. }
+\begin{table}
+\centering
+
+\caption{This is table}
+
+\begin{tabular}{|c||c|}
+\textbf{first} & \textbf{lastName} \\ 
+midul & sharma \\ 
+Shivji & Bhagat
+\end{tabular}
+\end{table}
+
+\end{document} 
