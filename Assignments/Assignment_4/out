@@ -1,0 +1,31 @@
+2
+lw $t1 4($t8)
+ 
+lw $t2 8($t8)
+ 
+add t2 t1 t2
+ 
+st 12($t9) t2
+ 
+lw $t1 12($t8)
+ 
+li t2 2
+ 
+sub t2 t1 t2
+ 
+lw $t1 8($t8)
+ 
+mul t2 t1 t2
+ 
+ld t1 12($t9)
+ 
+mul t2 t2 t1
+ 
+st 12($t9) t2
+ 
+lw $t2 4($t8)
+ 
+ld t1 12($t9)
+ 
+add t2 t2 t1
+
