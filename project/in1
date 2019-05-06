@@ -1,0 +1,14 @@
+main() {
+    a: int;
+    b: bool[10];
+    c: int;
+    i: int;
+    i = 0;
+    c = 10;
+    
+    while (i < 10) {
+        i = i +1;
+        a = 5;
+    }
+    b [(i + 5)] = 10;
+}
