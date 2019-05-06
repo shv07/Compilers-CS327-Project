@@ -71,6 +71,7 @@
   
 #include "ershov.h"  /* Contains definition of `symrec'        */
 #define MAX(a,b)((a>b)?a:b)
+#define MIN(a,b)((a<b)?a:b)
 int R;
 int count_temps;
 int  yylex(void);
@@ -79,7 +80,7 @@ struct StmtsNode *final;
 void expparse(struct StmtNode* ptr);
 void tparse(struct reg_node* ptr);
 
-#line 83 "ershov.tab.c" /* yacc.c:339  */
+#line 84 "ershov.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -124,7 +125,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 17 "ershov.y" /* yacc.c:355  */
+#line 18 "ershov.y" /* yacc.c:355  */
 
 int   val;  /* For returning numbers.                   */
 struct symrec  *tptr;   /* For returning symbol-table pointers      */
@@ -134,7 +135,7 @@ struct reg_node *node;
 struct StmtsNode *stmtsnode;
 struct StmtNode *stmtnode;
 
-#line 138 "ershov.tab.c" /* yacc.c:355  */
+#line 139 "ershov.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -151,7 +152,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 155 "ershov.tab.c" /* yacc.c:358  */
+#line 156 "ershov.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -448,8 +449,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    41,    41,    46,    51,    57,    66,    69,    81,    91,
-     102,   112,   115,   122
+       0,    42,    42,    47,    52,    58,    67,    70,    82,    92,
+     103,   113,   116,   123
 };
 #endif
 
@@ -1229,36 +1230,36 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 41 "ershov.y" /* yacc.c:1646  */
+#line 42 "ershov.y" /* yacc.c:1646  */
     {final = (yyvsp[0].stmtsnode);
 				// printf("start\n");
 				
 				}
-#line 1238 "ershov.tab.c" /* yacc.c:1646  */
+#line 1239 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 46 "ershov.y" /* yacc.c:1646  */
+#line 47 "ershov.y" /* yacc.c:1646  */
     {(yyval.stmtsnode)=(struct StmtsNode *) malloc(sizeof(struct StmtsNode));
 				(yyval.stmtsnode)->left = (yyvsp[0].stmtnode);
 				(yyval.stmtsnode)->right = NULL;
 				// printf("stmts\n");
 				}
-#line 1248 "ershov.tab.c" /* yacc.c:1646  */
+#line 1249 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 51 "ershov.y" /* yacc.c:1646  */
+#line 52 "ershov.y" /* yacc.c:1646  */
     {(yyval.stmtsnode)=(struct StmtsNode *) malloc(sizeof(struct StmtsNode));
 						(yyval.stmtsnode)->left = (yyvsp[-1].stmtnode);
 						(yyval.stmtsnode)->right = (yyvsp[0].stmtsnode);
 					// printf("junk");
 						}
-#line 1258 "ershov.tab.c" /* yacc.c:1646  */
+#line 1259 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 57 "ershov.y" /* yacc.c:1646  */
+#line 58 "ershov.y" /* yacc.c:1646  */
     {
 							// printf("entered something stmt\n");
 							(yyval.stmtnode)=(struct StmtNode *) malloc(sizeof(struct StmtNode));
@@ -1266,19 +1267,19 @@ yyreduce:
 							(yyval.stmtnode)->left_id_details = (yyvsp[-3].tptr);
 							// printf("stnmt var got || %s\n", $$->left_id_details->name);
 							}
-#line 1270 "ershov.tab.c" /* yacc.c:1646  */
+#line 1271 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 66 "ershov.y" /* yacc.c:1646  */
+#line 67 "ershov.y" /* yacc.c:1646  */
     {(yyval.node) = (yyvsp[0].node);
 						// printf("we should be hre\n");
 						}
-#line 1278 "ershov.tab.c" /* yacc.c:1646  */
+#line 1279 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 69 "ershov.y" /* yacc.c:1646  */
+#line 70 "ershov.y" /* yacc.c:1646  */
     {(yyval.node)=(struct reg_node *) malloc(sizeof(struct reg_node));
 						if((yyvsp[-2].node)->ersh==(yyvsp[0].node)->ersh)
 							 (yyval.node)->ersh = (yyvsp[-2].node)->ersh + 1;
@@ -1290,11 +1291,11 @@ yyreduce:
 						(yyval.node)->op = strdup("add");
 					// printf("add exp\n");
 					}
-#line 1294 "ershov.tab.c" /* yacc.c:1646  */
+#line 1295 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 81 "ershov.y" /* yacc.c:1646  */
+#line 82 "ershov.y" /* yacc.c:1646  */
     {(yyval.node)=(struct reg_node *) malloc(sizeof(struct reg_node));
 						if((yyvsp[-2].node)->ersh==(yyvsp[0].node)->ersh)
 							 (yyval.node)->ersh = (yyvsp[-2].node)->ersh + 1;
@@ -1304,11 +1305,11 @@ yyreduce:
 						//printf("%d lineno: %d\n",$$->ersh, __LINE__);
 						(yyval.node)->left = (yyvsp[-2].node);
 						(yyval.node)->right = (yyvsp[0].node);}
-#line 1308 "ershov.tab.c" /* yacc.c:1646  */
+#line 1309 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 91 "ershov.y" /* yacc.c:1646  */
+#line 92 "ershov.y" /* yacc.c:1646  */
     {(yyval.node)=(struct reg_node *) malloc(sizeof(struct reg_node));
 						if((yyvsp[-2].node)->ersh==(yyvsp[0].node)->ersh)
 							 (yyval.node)->ersh = (yyvsp[-2].node)->ersh + 1;
@@ -1319,11 +1320,11 @@ yyreduce:
 						//printf("%d lineno: %d\n",$$->ersh, __LINE__);
 						(yyval.node)->left = (yyvsp[-2].node);
 						(yyval.node)->right = (yyvsp[0].node);}
-#line 1323 "ershov.tab.c" /* yacc.c:1646  */
+#line 1324 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 102 "ershov.y" /* yacc.c:1646  */
+#line 103 "ershov.y" /* yacc.c:1646  */
     {(yyval.node)=(struct reg_node *) malloc(sizeof(struct reg_node));
 						if((yyvsp[-2].node)->ersh==(yyvsp[0].node)->ersh)
 							 (yyval.node)->ersh = (yyvsp[-2].node)->ersh + 1;
@@ -1333,18 +1334,18 @@ yyreduce:
 						(yyval.node)->op = strdup("div");	
 						(yyval.node)->left = (yyvsp[-2].node);
 						(yyval.node)->right = (yyvsp[0].node);}
-#line 1337 "ershov.tab.c" /* yacc.c:1646  */
+#line 1338 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 112 "ershov.y" /* yacc.c:1646  */
+#line 113 "ershov.y" /* yacc.c:1646  */
     {(yyval.node)=(yyvsp[-1].node);
 						}
-#line 1344 "ershov.tab.c" /* yacc.c:1646  */
+#line 1345 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 115 "ershov.y" /* yacc.c:1646  */
+#line 116 "ershov.y" /* yacc.c:1646  */
     {
 				(yyval.node) = (struct reg_node *)malloc(sizeof(struct reg_node));
 				(yyval.node)->ersh = 1;
@@ -1352,11 +1353,11 @@ yyreduce:
 				(yyval.node)->int_flag =1; 
 				// printf("num got\n");
 				}
-#line 1356 "ershov.tab.c" /* yacc.c:1646  */
+#line 1357 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 122 "ershov.y" /* yacc.c:1646  */
+#line 123 "ershov.y" /* yacc.c:1646  */
     {
 				(yyval.node) = (struct reg_node *)malloc(sizeof(struct reg_node));(yyval.node)->ersh = 1;
 				//printf("%d lineno: %d\n",$$->ersh, __LINE__);
@@ -1368,11 +1369,11 @@ yyreduce:
 				// printf("var got\n");
 				//$1->addr;
 				}
-#line 1372 "ershov.tab.c" /* yacc.c:1646  */
+#line 1373 "ershov.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1376 "ershov.tab.c" /* yacc.c:1646  */
+#line 1377 "ershov.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1600,7 +1601,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 135 "ershov.y" /* yacc.c:1906  */
+#line 136 "ershov.y" /* yacc.c:1906  */
   
 // void parse(struct StmtsNode* final){
 // 	//printf("sss");
@@ -1629,9 +1630,9 @@ void rparse(struct reg_node* ptr){
 		// ptr->code = ptr->right->code; // correct krna hai
 		// ptr->code += st (4*ptr->ersh)($t9) tR
 
-		sprintf(ptr->code, "%s \nst %d($t9) t%d\n", ptr->right->code,
-													(4*(ptr->ersh)),
-													R);
+		sprintf(ptr->code, "%s \nsw $t%d,%d($t9)\n ", ptr->right->code,
+													R,
+													(4*(ptr->ersh)));
 
 		if (ptr->left->ersh >= R) {
 			ptr->left->base = 1;
@@ -1646,14 +1647,14 @@ void rparse(struct reg_node* ptr){
 		// ptr->code += ptr->left->code;
 		// ptr->code += ld r(R-1) (4*(ptr->ersh - 1))($t9)
 
-		sprintf(ptr->code, "%s \n%s \nld t%d %d($t9)\n", ptr->code,
+		sprintf(ptr->code, "%s \n%s \nlw $t%d, %d($t9)\n", ptr->code,
 													ptr->left->code,
 													(R-1),
 													(4*(ptr->ersh)));
 
 		// ptr->code += ptr->op r(R) r(R) r(R-1)
 
-		sprintf(ptr->code, "%s \n%s t%d t%d t%d\n", ptr->code,
+		sprintf(ptr->code, "%s \n%s $t%d, $t%d, $t%d\n", ptr->code,
 														 ptr->op,
 														 R,
 														 R,
@@ -1667,10 +1668,11 @@ void rparse(struct reg_node* ptr){
 		// ptr->code = ptr->left->code; // correct krna hai
 		// ptr->code += st (4*ptr->ersh)($t9) tR
 
-		sprintf(ptr->code, "%s \nst %d($t9) t%d\n", ptr->left->code,
-													(4*ptr->ersh),
-													R);
-
+		
+		sprintf(ptr->code, "%s \nsw $t%d,%d($t9)\n", ptr->left->code,
+													R,
+													(4*ptr->ersh)
+													);
 		if (ptr->right->ersh >= R) {
 			ptr->right->base = 1;
 			tparse(ptr->right);
@@ -1679,16 +1681,9 @@ void rparse(struct reg_node* ptr){
 			ptr->right->base = R - ptr->right->ersh+1;
 			tparse(ptr->right);
 		}
-		// ptr->code += ptr->right->code;
-		// ptr->code += ld r(R-1) (4*(ptr->ersh - 1))($t9)
-		sprintf(ptr->code, "%s \n%s ld t%d %d($t9)\n", ptr->code,
-													ptr->left->code,
-													(R-1),
-													(4*(ptr->ersh)));
+		
 
-		// ptr->code += ptr->op r(R) r(R-1) r(R)
-
-		sprintf(ptr->code, "%s \n%s t%d t%d t%d\n", ptr->code,
+		sprintf(ptr->code, "%s \n%s $t%d $t%d $t%d\n", ptr->code,
 														 ptr->op,
 														 R,
 														 R-1,
@@ -1705,7 +1700,7 @@ void tparse(struct reg_node* ptr){
 				ptr->left->base = ptr->base;
 				tparse(ptr->left);
 				
-				sprintf(ptr->code, "%s \n%s \n%s t%d t%d t%d\n", ptr->left->code,
+				sprintf(ptr->code, "%s \n%s \n%s $t%d, $t%d, $t%d\n", ptr->left->code,
 																	   ptr->right->code,
 																	   ptr->op,
 																	   (ptr->ersh + ptr->base-1),
@@ -1719,7 +1714,7 @@ void tparse(struct reg_node* ptr){
 					tparse(ptr->right);
 					ptr->left->base = ptr->base;
 					tparse(ptr->left);
-					sprintf(ptr->code, "%s \n%s \n%s t%d t%d t%d\n", ptr->right->code,
+					sprintf(ptr->code, "%s \n%s \n%s $t%d, $t%d, $t%d\n", ptr->right->code,
 																	   	   ptr->left->code,
 																	   	   ptr->op,
 																	   	   (ptr->ersh + ptr->base-1), 
@@ -1732,7 +1727,7 @@ void tparse(struct reg_node* ptr){
 				tparse(ptr->left);
 				ptr->right->base = ptr->base;
 				tparse(ptr->right);
-				sprintf(ptr->code, "%s \n%s \n%s t%d t%d t%d\n", ptr->left->code,
+				sprintf(ptr->code, "%s \n%s \n%s $t%d, $t%d, $t%d\n", ptr->left->code,
 																	   ptr->right->code,
 																	   ptr->op,
 																	   (ptr->ersh + ptr->base-1),
@@ -1745,31 +1740,36 @@ void tparse(struct reg_node* ptr){
 		else{//It is a leaf node
 			assert((ptr->right == ptr->left) && ptr->right == NULL);
 			if(ptr->int_flag==0){
-				sprintf(ptr->code, "lw $t%d %s($t8)\n", ptr->base, ptr->id_rec->addr);
+				sprintf(ptr->code, "lw $t%d, %s($t8)\n", ptr->base, ptr->id_rec->addr);
 			}
 			else{
-				sprintf(ptr->code, "li t%d %d\n", ptr->base, ptr->value);
+				sprintf(ptr->code, "li $t%d, %d\n", ptr->base, ptr->value);
 			}
 		}
 	}
 	else rparse(ptr);
 }
 
-void stmt_parser(struct StmtsNode* final) {
+int stmt_parser(struct StmtsNode* final) {
 	if (final->right == NULL) { 
 		expparse(final->left);
+		return final->left->down->ersh;
 	}
 	else { // child is not NULL
 		expparse(final->left);
 		if (final->left->down->ersh <= R) {
-			printf("\nst %s($t8) t%d\n", final->left->left_id_details->addr,
-									 final->left->down->ersh);
+			//printf("\nst %s($t8), t%d\n", final->left->left_id_details->addr,
+				//					 final->left->down->ersh);
+			printf("\nsw $t%d,%s($t8)\n", final->left->down->ersh,
+									 final->left->left_id_details->addr);
 		}
 		else {
-			printf("\nst %s($t8) t%d\n", final->left->left_id_details->addr,
-									  R);
+//			printf("\nst %s($t8), t%d\n", final->left->left_id_details->addr,
+	//								  R);
+			printf("\nsw $t%d,%s($t8)\n", R,
+										final->left->left_id_details->addr);
 		}
-		stmt_parser(final->right);
+		return stmt_parser(final->right);
 	}
 }
 
@@ -1777,11 +1777,15 @@ void stmt_parser(struct StmtsNode* final) {
 int main (int argc, char* argv [])
 {
   //  fp=fopen("asmb.asm","w");
-   //fprintf(fp,".data\n\n.text\nli $t8,268500992\n");
+   printf(".data\n\n.text\nli $t8,268500992\nli $t9,268500912\n");
 	R = atoi(argv[1]);
     yyparse ();
 	//printf("yyparesed ke bhr\n");
-	stmt_parser(final);
+	int last = stmt_parser(final);
+	
+
+	if (argc == 2) printf("\nli $v0,1\nmove $a0,$t%d\nsyscall\n", MIN(R, last));
+    else printf("\nli $v0,1\nmove $a0,$t%d\nsyscall\n", last);
 		//printf("done\n");
    // fprintf(fp,"\nli $v0,1\nmove $a0,$t0\nsyscall\n");
    // fclose(fp);

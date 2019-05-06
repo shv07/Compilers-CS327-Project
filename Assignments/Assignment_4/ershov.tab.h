@@ -55,7 +55,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 17 "ershov.y" /* yacc.c:1909  */
+#line 18 "ershov.y" /* yacc.c:1909  */
 
 int   val;  /* For returning numbers.                   */
 struct symrec  *tptr;   /* For returning symbol-table pointers      */

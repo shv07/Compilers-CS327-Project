@@ -6,6 +6,7 @@
   
 #include "ershov.h"  /* Contains definition of `symrec'        */
 #define MAX(a,b)((a>b)?a:b)
+#define MIN(a,b)((a<b)?a:b)
 int R;
 int count_temps;
 int  yylex(void);
@@ -160,9 +161,9 @@ void rparse(struct reg_node* ptr){
 		// ptr->code = ptr->right->code; // correct krna hai
 		// ptr->code += st (4*ptr->ersh)($t9) tR
 
-		sprintf(ptr->code, "%s \nst %d($t9) t%d\n", ptr->right->code,
-													(4*(ptr->ersh)),
-													R);
+		sprintf(ptr->code, "%s \nsw $t%d,%d($t9)\n ", ptr->right->code,
+													R,
+													(4*(ptr->ersh)));
 
 		if (ptr->left->ersh >= R) {
 			ptr->left->base = 1;
@@ -177,14 +178,14 @@ void rparse(struct reg_node* ptr){
 		// ptr->code += ptr->left->code;
 		// ptr->code += ld r(R-1) (4*(ptr->ersh - 1))($t9)
 
-		sprintf(ptr->code, "%s \n%s \nld t%d %d($t9)\n", ptr->code,
+		sprintf(ptr->code, "%s \n%s \nlw $t%d, %d($t9)\n", ptr->code,
 													ptr->left->code,
 													(R-1),
 													(4*(ptr->ersh)));
 
 		// ptr->code += ptr->op r(R) r(R) r(R-1)
 
-		sprintf(ptr->code, "%s \n%s t%d t%d t%d\n", ptr->code,
+		sprintf(ptr->code, "%s \n%s $t%d, $t%d, $t%d\n", ptr->code,
 														 ptr->op,
 														 R,
 														 R,
@@ -198,10 +199,11 @@ void rparse(struct reg_node* ptr){
 		// ptr->code = ptr->left->code; // correct krna hai
 		// ptr->code += st (4*ptr->ersh)($t9) tR
 
-		sprintf(ptr->code, "%s \nst %d($t9) t%d\n", ptr->left->code,
-													(4*ptr->ersh),
-													R);
-
+		
+		sprintf(ptr->code, "%s \nsw $t%d,%d($t9)\n", ptr->left->code,
+													R,
+													(4*ptr->ersh)
+													);
 		if (ptr->right->ersh >= R) {
 			ptr->right->base = 1;
 			tparse(ptr->right);
@@ -210,16 +212,9 @@ void rparse(struct reg_node* ptr){
 			ptr->right->base = R - ptr->right->ersh+1;
 			tparse(ptr->right);
 		}
-		// ptr->code += ptr->right->code;
-		// ptr->code += ld r(R-1) (4*(ptr->ersh - 1))($t9)
-		sprintf(ptr->code, "%s \n%s ld t%d %d($t9)\n", ptr->code,
-													ptr->left->code,
-													(R-1),
-													(4*(ptr->ersh)));
+		
 
-		// ptr->code += ptr->op r(R) r(R-1) r(R)
-
-		sprintf(ptr->code, "%s \n%s t%d t%d t%d\n", ptr->code,
+		sprintf(ptr->code, "%s \n%s $t%d $t%d $t%d\n", ptr->code,
 														 ptr->op,
 														 R,
 														 R-1,
@@ -236,7 +231,7 @@ void tparse(struct reg_node* ptr){
 				ptr->left->base = ptr->base;
 				tparse(ptr->left);
 				
-				sprintf(ptr->code, "%s \n%s \n%s t%d t%d t%d\n", ptr->left->code,
+				sprintf(ptr->code, "%s \n%s \n%s $t%d, $t%d, $t%d\n", ptr->left->code,
 																	   ptr->right->code,
 																	   ptr->op,
 																	   (ptr->ersh + ptr->base-1),
@@ -250,7 +245,7 @@ void tparse(struct reg_node* ptr){
 					tparse(ptr->right);
 					ptr->left->base = ptr->base;
 					tparse(ptr->left);
-					sprintf(ptr->code, "%s \n%s \n%s t%d t%d t%d\n", ptr->right->code,
+					sprintf(ptr->code, "%s \n%s \n%s $t%d, $t%d, $t%d\n", ptr->right->code,
 																	   	   ptr->left->code,
 																	   	   ptr->op,
 																	   	   (ptr->ersh + ptr->base-1), 
@@ -263,7 +258,7 @@ void tparse(struct reg_node* ptr){
 				tparse(ptr->left);
 				ptr->right->base = ptr->base;
 				tparse(ptr->right);
-				sprintf(ptr->code, "%s \n%s \n%s t%d t%d t%d\n", ptr->left->code,
+				sprintf(ptr->code, "%s \n%s \n%s $t%d, $t%d, $t%d\n", ptr->left->code,
 																	   ptr->right->code,
 																	   ptr->op,
 																	   (ptr->ersh + ptr->base-1),
@@ -276,31 +271,36 @@ void tparse(struct reg_node* ptr){
 		else{//It is a leaf node
 			assert((ptr->right == ptr->left) && ptr->right == NULL);
 			if(ptr->int_flag==0){
-				sprintf(ptr->code, "lw $t%d %s($t8)\n", ptr->base, ptr->id_rec->addr);
+				sprintf(ptr->code, "lw $t%d, %s($t8)\n", ptr->base, ptr->id_rec->addr);
 			}
 			else{
-				sprintf(ptr->code, "li t%d %d\n", ptr->base, ptr->value);
+				sprintf(ptr->code, "li $t%d, %d\n", ptr->base, ptr->value);
 			}
 		}
 	}
 	else rparse(ptr);
 }
 
-void stmt_parser(struct StmtsNode* final) {
+int stmt_parser(struct StmtsNode* final) {
 	if (final->right == NULL) { 
 		expparse(final->left);
+		return final->left->down->ersh;
 	}
 	else { // child is not NULL
 		expparse(final->left);
 		if (final->left->down->ersh <= R) {
-			printf("\nst %s($t8) t%d\n", final->left->left_id_details->addr,
-									 final->left->down->ersh);
+			//printf("\nst %s($t8), t%d\n", final->left->left_id_details->addr,
+				//					 final->left->down->ersh);
+			printf("\nsw $t%d,%s($t8)\n", final->left->down->ersh,
+									 final->left->left_id_details->addr);
 		}
 		else {
-			printf("\nst %s($t8) t%d\n", final->left->left_id_details->addr,
-									  R);
+//			printf("\nst %s($t8), t%d\n", final->left->left_id_details->addr,
+	//								  R);
+			printf("\nsw $t%d,%s($t8)\n", R,
+										final->left->left_id_details->addr);
 		}
-		stmt_parser(final->right);
+		return stmt_parser(final->right);
 	}
 }
 
@@ -308,11 +308,15 @@ void stmt_parser(struct StmtsNode* final) {
 int main (int argc, char* argv [])
 {
   //  fp=fopen("asmb.asm","w");
-   //fprintf(fp,".data\n\n.text\nli $t8,268500992\n");
+   printf(".data\n\n.text\nli $t8,268500992\nli $t9,268500912\n");
 	R = atoi(argv[1]);
     yyparse ();
 	//printf("yyparesed ke bhr\n");
-	stmt_parser(final);
+	int last = stmt_parser(final);
+	
+
+	if (argc == 2) printf("\nli $v0,1\nmove $a0,$t%d\nsyscall\n", MIN(R, last));
+    else printf("\nli $v0,1\nmove $a0,$t%d\nsyscall\n", last);
 		//printf("done\n");
    // fprintf(fp,"\nli $v0,1\nmove $a0,$t0\nsyscall\n");
    // fclose(fp);
